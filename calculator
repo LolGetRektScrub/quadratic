@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quadratic Equation</title>
+    <script src="https://www.desmos.com/api/v1.4/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <script>
+        var a, b, c;
+        var outputText;
+        var outputText1;
+        var outputText2;
+
+        function validate() {
+        a = document.forms["input_form"] ["Aterm"].value;
+        b = document.forms["input_form"] ["Bterm"].value;
+        c = document.forms["input_form"] ["Cterm"].value;
+
+        if (a == 0) {
+            outputText = "<em>a</em> cannot equal 0";
+        } else if(isNaN(a)) {
+            outputText = "<em>a</em> must be a number";
+        } else if(isNaN(b)) {
+            outputText = "<em>b</em> must be a number";
+        } else if(isNaN(c)) {
+            outputText = "<em>c</em> must be a number";
+        } else {
+            var x1 = (-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a);
+            var x2 = (-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a);
+            outputText = "The possible solutions/roots are " + x1 + " and " + x2 + " (NaN means no solution can be found with real numbers) ";
+        } 
+            document.getElementById("output_text").innerHTML = outputText;
+            validate2();
+        }
+
+        function validate2() {
+        a = document.forms["input_form"] ["Aterm"].value;
+        b = document.forms["input_form"] ["Bterm"].value;
+        c = document.forms["input_form"] ["Cterm"].value;
+
+        if (a == 0) {
+            outputText = "<em>a</em> cannot equal 0";
+        } else if(isNaN(a)) {
+            outputText = "<em>a</em> must be a number";
+        } else if(isNaN(b)) {
+            outputText = "<em>b</em> must be a number";
+        } else if(isNaN(c)) {
+            outputText = "<em>c</em> must be a number";
+        } else {
+            var v1 = (-b / (2 * a))
+            var v2 = ((a * (v1 * v1)) + (b * v1) + c)
+            outputText1 = "The vertex is ( " + v1 + ", " + v2 + "). [For some reason the y coordinate will sometimes be represented as an expression. So if the answer is -5, the program writes it as -4-1. I have no idea why thats happening, but I will try to correct that.]";
+        }
+            document.getElementById("output_text1").innerHTML = outputText1;
+            validate3();
+        }
+
+        function validate3() {
+            var elt = document.getElementById('calculator');
+            var calculator = Desmos.GraphingCalculator(elt);
+            calculator.setExpression({ id: 'graph1', latex: ((a * (x * x)) + (b * x) + c) });
+        }
+    </script> 
+</head>
+
+<body>
+    <p>Enter integer's for <strong>a</strong>, <strong>b</strong>, <strong>c</strong></p>
+
+    <form name="input_form" action="javascript:validate();">
+        a: <input type="text" name="Aterm" size="6" required>
+        b: <input type="text" name="Bterm" size="6" required>
+        c: <input type="text" name="Cterm" size="6" required>
+        <br><br>
+        <input type="submit" value="Calculate">
+    </form>
+
+    <p id="output_text"/>
+    <p id="output_text1"/>
+    <p id="output_text2"/>
+    <p>Write your equation in the space below after you input your variables</p>
+    <div id="calculator" style="width: 800px; height: 500px;"></div>
+    
+</body>
+
+</html>
